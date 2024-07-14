@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Weather APP</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="index.js" defer></script>
+  </head>
+  <body>
+    <div class="navbar">
+      <!-- We need a button for current weather and a button for the weekly forecast then another for either US or Metric values -->
+      <div class="weekly-daily">
+        <span class="daily">Daily</span>
+        <label class="switch">
+          <input type="checkbox" />
+          <span class="slider"></span> </label
+        ><span class="weekly">Weekly</span>
+      </div>
+      <div class="unit-group">
+        <span>&#176;C</span>
+        <label class="switch">
+          <input type="checkbox" />
+          <span class="slider"></span>
+        </label>
+        <span>&#8457;</span>
+      </div>
+    </div>
+    <div class="mid-section">
+      <legend>
+        <form>
+          <label for="location"></label>
+            <input
+              class="location"
+              id="location"
+              type="text"
+              placeholder="Enter your location to get weather data" />
+          </label>
+          <button class="submit">Get Weather</button>
+        </form>
+      </legend>
+    </div>
+    <div class="content-container">
+      
+    </div>
+  </body>
+</html>
