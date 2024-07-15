@@ -9,6 +9,7 @@ const UNIT_GROUP = "?unitGroup=us";
 const MY_API_KEY = "&key=XXGXHX3HNQFT2MBX2FVU7JYWQ";
 const URL = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline";
 
+
 const locationInput = document.querySelector('.location');
 const submit = document.querySelector('.submit');
 const content = document.querySelector('.content-container');
@@ -18,6 +19,8 @@ const currentTemperature = document.querySelector('.temperature');
 const currentHumidity = document.querySelector('.humidity');
 const currentSunrise = document.querySelector('.sunrise');
 const currentSunset = document.querySelector('.sunset');
+const currentToFuture = document.querySelector('.current-future');
+const tempScale = document.querySelector('.scale');
 
 async function fetchWeather(location) {
     const response = await fetch(`${URL}/${location}/${UNIT_GROUP}${MY_API_KEY}&contentType=json`, { mode: 'cors' });
@@ -34,10 +37,21 @@ async function fetchWeather(location) {
 submit.addEventListener('click', async (e) => {
     e.preventDefault()
     const weatherData = await fetchWeather(locationInput.value);
-    displayCity(weatherData);
+    displayCurrentConditions(weatherData);
+
 })
 
-function displayCity(data) {
+
+currentToFuture.addEventListener('click', async () => {
+    const WeatherData = await fetchWeather(locationInput.value)
+    if (!currentToFuture.checked) {
+        displayCurrentConditions(WeatherData)
+    } else {
+        displayWeeklyData(WeatherData);
+    }
+})
+
+function displayCurrentConditions(data) {
     const { temp, humidity, sunrise, sunset } = data.currentConditions
     const city = data.resolvedAddress
     weatherLocation.textContent = city
@@ -48,3 +62,7 @@ function displayCity(data) {
     console.log(data)
 }
 
+function displayWeeklyData(data) {
+    currentConditionsContainer.style.display = "none"
+
+}
