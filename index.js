@@ -53,6 +53,7 @@ currentToFuture.addEventListener('click', async () => {
     }
 });
 
+// check if unitGroup button is checked and manipulate the variable value to fetch the correct information
 tempScale.addEventListener('click', (e) => {
     if (tempScale.checked) {
         UNIT_GROUP = "?unitGroup=us"
@@ -64,13 +65,15 @@ tempScale.addEventListener('click', (e) => {
 
 })
 
+//submit handler to make it reusable in other buttons like C/F to display the desirable unitgroup 
 async function submitHandler() {
     const weatherData = await fetchWeather(locationInput.value);
     displayCurrentConditions(weatherData);
 }
 
 function displayCurrentConditions(data) {
-    const { temp, humidity, sunrise, sunset } = data.currentConditions
+    //destructure data to display information
+    const { temp, humidity, sunrise, sunset, icon } = data.currentConditions
     const city = data.resolvedAddress
     weatherLocation.textContent = city
     currentTemperature.textContent = `temperature ${temp}`
