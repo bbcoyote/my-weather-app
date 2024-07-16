@@ -5,7 +5,7 @@
 // we can break down the url further to choose between US and Metric that way we don't have to do the math to convert temperatures.
 
 // Fetch data
-const UNIT_GROUP = "?unitGroup=us";
+let UNIT_GROUP = "?unitGroup=metric";
 const MY_API_KEY = "&key=XXGXHX3HNQFT2MBX2FVU7JYWQ";
 const URL = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline";
 
@@ -29,17 +29,19 @@ async function fetchWeather(location) {
     } else {
         return response.json()
     }
-
-}
+};
 
 
 
 submit.addEventListener('click', async (e) => {
-    e.preventDefault()
-    const weatherData = await fetchWeather(locationInput.value);
-    displayCurrentConditions(weatherData);
-
-})
+    e.preventDefault();
+    submitHandler()
+    if (tempScale.checked) {
+        console.log("F")
+    } else {
+        console.log("C")
+    }
+});
 
 
 currentToFuture.addEventListener('click', async () => {
@@ -49,7 +51,23 @@ currentToFuture.addEventListener('click', async () => {
     } else {
         displayWeeklyData(WeatherData);
     }
+});
+
+tempScale.addEventListener('click', (e) => {
+    if (tempScale.checked) {
+        UNIT_GROUP = "?unitGroup=us"
+        submitHandler()
+    } else {
+        UNIT_GROUP = "?unitGroup=metric"
+        submitHandler()
+    }
+
 })
+
+async function submitHandler() {
+    const weatherData = await fetchWeather(locationInput.value);
+    displayCurrentConditions(weatherData);
+}
 
 function displayCurrentConditions(data) {
     const { temp, humidity, sunrise, sunset } = data.currentConditions
